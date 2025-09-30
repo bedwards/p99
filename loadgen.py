@@ -2,9 +2,11 @@ import asyncio, time, json
 import httpx
 from hdrhistogram import HdrHistogram
 
+host = '192.168.1.121'
+
 
 async def blast(rate=200, seconds=60):
-    url = 'http://127.0.0.1:8080/infer'
+    url = f'http://{host}:8080/infer'
     interval = 1.0 / rate
     start = time.perf_counter()
     end   = start + seconds
