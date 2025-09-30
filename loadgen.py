@@ -6,7 +6,7 @@ import httpx
 from hdrh.histogram import HdrHistogram  # pip install -U hdrhistogram
 
 host = '192.168.1.121'
-log_every_n = 1_000
+log_every_n = 10
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -68,7 +68,7 @@ async def blast(rate=200, seconds=60):
             i += 1
 
     def p(q):
-        return hist.get_value_at_percentile(q)/1000.0
+        return hist.get_value_at_percentile(q) / 1000.0
 
     print(f'n={hist.get_total_count()} p50={p(50):.2f}ms p95={p(95):.2f}ms p99={p(99):.2f}ms p99.9={p(99.9):.2f}ms')
 
