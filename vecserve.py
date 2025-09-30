@@ -120,4 +120,4 @@ async def q_batcher():
 
 
 if __name__ == '__main__':
-    uvicorn.run(app, host=host, port=9090, log_level='warning')
+    uvicorn.run(app, host=host, port=8080, log_level='warning')
