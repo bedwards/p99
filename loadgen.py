@@ -51,7 +51,7 @@ async def blast(rate=200, seconds=60):
                 logging.warning('request failed', exc_info=True)
 
             i += 1
-            if i % 100_000 == 0:
+            if i % 1_000_000 == 0:
                 elapsed = time.perf_counter() - start
                 approx_sends_per_sec = i / elapsed if elapsed > 0 else 0.0
                 logging.info(f'sent={i} elapsed={elapsed:.2f}s approx_qps={approx_sends_per_sec:.1f}')
