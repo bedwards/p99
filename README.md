@@ -45,8 +45,11 @@ Finally I built something closer to what I actually use day to day: a lightweigh
 See `vecserve.py`.
 
 ```
+loadgen -> vecserve
+n=3358 p50=21397.50ms p95=41189.38ms p99=42827.78ms p99.9=43220.99ms
+
 hedged_client -> vecserve
-p50=7.25ms p95=8.95ms p99=10.57ms p99.9=53.92ms
+p50=17.80ms p95=19.96ms p99=20.87ms p99.9=100.89ms
 ```
 
 In the end, I was left with a series of sketches rather than a finished machine: fragments of code and traces of output that capture the difference between what looks smooth and what actually feels rough. Each step opened a small window onto the mechanics of modern computation, the tradeoffs we inherit when we chase performance. The lesson wasn’t about any single technique but about noticing what the numbers try to hide, and how much is revealed once you refuse to look away.

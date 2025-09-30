@@ -26,13 +26,14 @@ async def blast(rate=200, seconds=60):
     hist  = HdrHistogram(1, 60_000_000, 3)  # 1us..60s, 3 sig figs
     async with httpx.AsyncClient(timeout=5.0) as client:
         try:
-            _r = await client.get(root_url, timeout=2.0)
+            _r = await client.get(url, timeout=2.0)
             logging.info(
-                f'remote access ok: GET / -> '
+                f'remote access ok: GET /infer -> '
                 f'{getattr(_r, "status_code", "n/a")}'
             )
         except Exception as e:
             logging.warning(f'remote access check failed: {e}')
+            raise
 
         i = 0
         while True:
