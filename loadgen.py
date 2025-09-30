@@ -13,8 +13,9 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 
-# service_logger = logging.getLogger('MyService')
-# service_logger.setLevel(logging.DEBUG)
+for service in ['httpx', 'httpcore']:  # 'httpcore.http11':
+    logging.getLogger(service).setLevel(logging.WARNING)
+
 
 async def blast(rate=200, seconds=60):
     root_url = f'http://{host}:8080'
