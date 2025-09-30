@@ -1,6 +1,7 @@
 import asyncio, time
 import httpx
 from hdrh import HdrHistogram
+from hdrh.histogram import HdrHistogram
 
 host = "192.168.1.121"
 
