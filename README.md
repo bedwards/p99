@@ -4,17 +4,27 @@ I began with the most stripped-down experiment possible: a single GPU operation 
 
 See `tail_gpu.py`.
 
-From there, I tried to dress the thing up like a service. Requests go into a queue, the GPU works on them in batches, and the whole rhythm starts to look familiar. Throughput soars, but latency grows teeth. The system isn’t lying exactly, but it is revealing how easily efficiency can become waiting.
+```
+count=500  p50=0.41ms  p95=0.48ms  p99=6.78ms  max=50.91ms
+```
 
-See `batch_service_orig.py`.
+From there, I tried to dress the thing up like a service. Requests go into a queue, the GPU works on them in batches, and the whole rhythm starts to look familiar. Throughput soars, but latency grows teeth. The system isn’t lying exactly, but it is revealing how easily efficiency can become waiting.
 
 Numbers mean nothing if you don’t measure them honestly. So I built a generator that sends requests at a steady cadence and records the true delay from when each request should have started. No shortcuts, no wishful thinking. The curves came back sharper, less forgiving, but also more real.
 
-See `loadgen.py`.
+See `batch_service_orig.py` and `loadgen.py`.
+
+```
+n=2780 p50=23003.13ms p95=43909.12ms p99=45678.59ms p99.9=46071.81ms
+```
 
 That gave me the excuse to push the batching service further. I added limits, guardrails, and the ability to say “no” when the queue was already choking. Sometimes refusal is mercy. The results told a story of restraint: fewer requests overall, but a healthier distribution for the ones that got through.
 
 See `batch_service_patched.py`.
+
+```
+n=2746 p50=23805.95ms p95=43876.35ms p99=45809.66ms p99.9=46268.42ms
+```
 
 Of course, not every request has to wait patiently. I added a little trick—send a backup if the first call takes too long, cancel whichever one loses the race. The results were uncanny: the worst-case scenarios softened, the system felt quicker, even though nothing fundamental had changed. A reminder that sometimes perception is architecture.
 
