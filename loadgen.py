@@ -1,6 +1,6 @@
 import asyncio, time
 import httpx
-from hdrhistogram import HdrHistogram
+from hdrh import HdrHistogram
 
 async def attack(url: str, rate: float, duration_s: float, timeout_s: float = 5.0):
     interval = 1.0 / rate
