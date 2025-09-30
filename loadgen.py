@@ -6,7 +6,7 @@ import httpx
 from hdrh.histogram import HdrHistogram  # pip install -U hdrhistogram
 
 host = '192.168.1.121'
-debug_every_n = 100_000_000
+log_every_n = 100_000
 
 logging.basicConfig(
     level=logging.INFO,
@@ -45,21 +45,22 @@ async def blast(rate=200, seconds=60):
             t0 = time.perf_counter()
 
             try:
-                if i % debug_every_n == 0:
+                if i % log_every_n == 0:
                     logging.debug(f'POST /infer scheduled_at={scheduled:.6f}')
                 r = await client.post(url, json={'x': 1})
                 r.raise_for_status()
-                if i % debug_every_n == 0:
+                if i % log_every_n == 0:
                     logging.debug(f'/infer -> {r.status_code}')
                 t1 = time.perf_counter()
                 hist.record_value(int((t1 - scheduled) * 1_000_000))
             except Exception:
                 logging.warning('request failed', exc_info=True)
 
-            if i % debug_every_n == 0:
+            if i % log_every_n == 0:
                 elapsed = time.perf_counter() - start
                 approx_sends_per_sec = i / elapsed if elapsed > 0 else 0.0
-                logging.info(f'sent={i} elapsed={elapsed:.2f}s approx_qps={approx_sends_per_sec:.1f}')
+                if i % log_every_n == 0:
+                    logging.info(f'sent={i} elapsed={elapsed:.2f}s approx_qps={approx_sends_per_sec:.1f}')
 
             i += 1
 
