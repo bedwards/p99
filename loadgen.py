@@ -1,6 +1,6 @@
 import asyncio, time, json
 import httpx
-from hdrhistogram import HdrHistogram
+from hdrh.histogram import HdrHistogram  # pip install -U hdrhistogram
 
 host = '192.168.1.121'
 
