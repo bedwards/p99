@@ -45,6 +45,7 @@ async def upsert(item: dict):
     return JSONResponse({'count': corpus.shape[0]})
 
 
+@app.post('/infer')
 @app.post('/query')
 async def query(item: dict):
     v = (torch
