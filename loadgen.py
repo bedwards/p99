@@ -6,7 +6,7 @@ import httpx
 from hdrh.histogram import HdrHistogram  # pip install -U hdrhistogram
 
 host = '192.168.1.121'
-debug_every_n = 100_000
+debug_every_n = 100_000_000
 
 logging.basicConfig(
     level=logging.INFO,
