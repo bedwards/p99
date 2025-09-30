@@ -6,13 +6,15 @@ import httpx
 from hdrh.histogram import HdrHistogram  # pip install -U hdrhistogram
 
 host = '192.168.1.121'
-log_every_n = 100_000_000
+log_every_n = 100_000
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='[%(asctime)s] %(levelname)s %(message)s'
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 
+# service_logger = logging.getLogger('MyService')
+# service_logger.setLevel(logging.DEBUG)
 
 async def blast(rate=200, seconds=60):
     root_url = f'http://{host}:8080'
