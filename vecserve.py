@@ -46,6 +46,13 @@ async def upsert(item: dict):
 
 
 @app.post('/infer')
+async def infer(item: dict):
+    vec = item.get('vec')
+    if vec is None:  # allow dummy payloads like {"x":1}
+        vec = torch.randn(DIM, device='cpu').tolist()
+    return await query({'vec': vec})
+
+
 @app.post('/query')
 async def query(item: dict):
     v = (torch
