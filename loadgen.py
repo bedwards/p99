@@ -2,6 +2,9 @@ import asyncio, time
 import httpx
 from hdrh import HdrHistogram
 
+host = "192.168.1.121"
+
+
 async def attack(url: str, rate: float, duration_s: float, timeout_s: float = 5.0):
     interval = 1.0 / rate
     start = time.perf_counter()
@@ -34,4 +37,4 @@ async def attack(url: str, rate: float, duration_s: float, timeout_s: float = 5.
           f"p99={p(99):.2f} ms  p99.9={p(99.9):.2f} ms  max={p(100):.2f} ms")
 
 if __name__ == "__main__":
-    asyncio.run(attack("http://127.0.0.1:8000/work", rate=200, duration_s=20))
+    asyncio.run(attack(f"http://{host}:8000/work", rate=200, duration_s=20))
