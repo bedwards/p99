@@ -30,6 +30,14 @@ Of course, not every request has to wait patiently. I added a little trick—sen
 
 See `hedged_client.py`.
 
+```
+batch_service_orig
+p50=20.13ms p95=22.09ms p99=29.55ms p99.9=205.83ms
+
+batch_service_patched
+p50=20.45ms p95=23.81ms p99=107.93ms p99.9=219.49ms
+```
+
 Finally I built something closer to what I actually use day to day: a lightweight vector search, running entirely on the GPU, able to accept inserts and queries in real time. It isn’t a product, but it’s enough to feel the tension between batching for speed and protecting each request from being swallowed by the crowd. And in that tension lies the whole game.
 
 See `vecserve.py`.

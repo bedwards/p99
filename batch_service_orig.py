@@ -1,8 +1,12 @@
-import asyncio, time, random, numpy as np, torch
+import asyncio
+import random
+import time
 from contextlib import asynccontextmanager
+import numpy as np
+import torch
+import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
-import uvicorn
 
 assert torch.backends.mps.is_available()
 device = 'mps'
